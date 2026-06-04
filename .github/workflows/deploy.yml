@@ -34,7 +34,6 @@ jobs:
           args: >
             --verbose
             --no-progress
-            --exclude-mail
             --max-retries 2
             .
         env:

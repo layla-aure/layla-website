@@ -35,6 +35,8 @@ jobs:
             --verbose
             --no-progress
             --max-retries 2
+            --exclude '^https://(www\.)?linkedin\.com/'
+            --exclude '^https://canva\.link/'
             .
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -41,6 +41,12 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Setup Chrome
+        id: setup-chrome
+        uses: browser-actions/setup-chrome@v2
+        with:
+          install-dependencies: true
+
       - name: Accessibility audit
         run: |
           npx --yes http-server -p 8765 -c-1 -s &
@@ -48,7 +54,8 @@ jobs:
           trap 'kill $SERVER_PID' EXIT
           sleep 3
           find . -name '*.html' -not -path './.git/*' | sed 's|^\./||' | \
-            jq -R -s 'split("\n") | map(select(length>0)) | map("http://127.0.0.1:8765/" + .) | {defaults: {standard: "WCAG2AA"}, urls: .}' \
+            jq -R -s --arg chrome "${{ steps.setup-chrome.outputs.chrome-path }}" \
+              'split("\n") | map(select(length>0)) | map("http://127.0.0.1:8765/" + .) | {defaults: {standard: "WCAG2AA", chromeLaunchConfig: {executablePath: $chrome, args: ["--no-sandbox", "--disable-setuid-sandbox"]}}, urls: .}' \
             > .pa11yci.json
           npx --yes pa11y-ci --config .pa11yci.json
 

@@ -41,6 +41,15 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Accessibility audit
+        run: |
+          npx --yes http-server -p 8765 -c-1 -s &
+          SERVER_PID=$!
+          sleep 3
+          URLS=$(find . -name '*.html' -not -path './.git/*' | sed 's|^\./||' | while read -r page; do echo -n " http://127.0.0.1:8765/$page"; done)
+          npx --yes pa11y-ci $URLS --standard WCAG2AA
+          kill $SERVER_PID
+
   deploy:
     name: Deploy to AWS
     needs: ci

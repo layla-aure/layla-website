@@ -280,7 +280,7 @@ body {
     align-self: start;
     height: 100vh;
     max-height: 100vh;
-    overflow-y: auto;
+    overflow-y: hidden;
 }
 
 .logo {
@@ -1410,8 +1410,41 @@ body {
 }
 
 @media (min-width: 769px) {
+    .sidebar {
+        gap: 0;
+        padding: 0;
+    }
+
     .sidebar-header {
-        display: contents;
+        flex-shrink: 0;
+        padding: 24px 16px 12px;
+    }
+
+    :root:not(.minecraft-theme) .sidebar {
+        background: transparent;
+    }
+
+    :root:not(.minecraft-theme) .sidebar-header {
+        background: linear-gradient(180deg, #7cb04c 0, #588537 100%);
+    }
+
+    :root:not(.minecraft-theme) .nav-links {
+        background: linear-gradient(180deg, #7a5f42 0, #5c4834 100%);
+    }
+
+    :root.dark-mode:not(.minecraft-theme) .sidebar-header {
+        background: linear-gradient(180deg, #4c7330 0, #36501f 100%);
+    }
+
+    :root.dark-mode:not(.minecraft-theme) .nav-links {
+        background: linear-gradient(180deg, #423528 0, #342820 100%);
+    }
+
+    .nav-links {
+        flex: 1;
+        min-height: 0;
+        overflow-y: auto;
+        padding: 8px 16px 24px;
     }
 
     .nav-menu-toggle {

@@ -25,6 +25,13 @@
     --text-on-accent: #ffffff;
     --btn-secondary-fg: #0a4a6e;
     --btn-secondary-border: #1e7aad;
+    --link-fg: #1a6b99;
+    --link-fg-hover: #0a4a6e;
+    --link-visited: #4a3080;
+    --project-card-bg: #ffffff;
+    --project-card-border: #d4d4d4;
+    --project-card-heading: var(--nav-green-dark);
+    --project-card-hover-shadow: rgba(93, 140, 62, 0.25);
     --chart-axis: #3b2d1e;
     --chart-grid: rgba(59, 45, 30, 0.12);
     --image-border-color: #d4d4d4;
@@ -59,8 +66,8 @@
     --sand: #f5efdc;
     --oak: #caa884;
     --sky: #6cb4e8;
-    --card-bg: rgba(20, 20, 20, 0.92);
-    --card-border: rgba(255, 255, 255, 0.1);
+    --card-bg: #2a3228;
+    --card-border: rgba(140, 160, 130, 0.2);
     --sidebar-bg: linear-gradient(180deg,
         #4c7330 0,
         #36501f 72px,
@@ -74,6 +81,13 @@
     --text-on-accent: #ffffff;
     --btn-secondary-fg: #7ec8eb;
     --btn-secondary-border: #5ba8d4;
+    --link-fg: #7ec8eb;
+    --link-fg-hover: #a8dff5;
+    --link-visited: #c9a8e8;
+    --project-card-bg: #323b30;
+    --project-card-border: rgba(140, 160, 130, 0.25);
+    --project-card-heading: #8fd86e;
+    --project-card-hover-shadow: rgba(0, 0, 0, 0.35);
     --chart-axis: #e6dac8;
     --chart-grid: rgba(230, 218, 200, 0.18);
     --image-border-color: rgba(255, 255, 255, 0.22);
@@ -100,6 +114,14 @@
         background-color: #1a2812;
     }
 
+}
+
+:root.dark-mode.minecraft-theme {
+    --card-bg: rgba(58, 48, 38, 0.96);
+    --card-border: rgba(202, 168, 132, 0.18);
+    --project-card-bg: rgba(68, 56, 44, 0.98);
+    --project-card-border: rgba(202, 168, 132, 0.22);
+    --project-card-heading: #a8d878;
 }
 
 * {
@@ -177,7 +199,7 @@ body {
     image-rendering: pixelated;
     cursor: pointer;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
-    transition: transform 0.12s, box-shadow 0.12s, background-image 0.12s;
+    transition: transform 0.12s, box-shadow 0.12s, background-image 0.12s, background-color 0.12s, border-color 0.12s;
 }
 
 :root.minecraft-theme .theme-toggle {
@@ -197,6 +219,17 @@ body {
 .theme-toggle:focus-visible {
     outline: 2px solid var(--nav-green);
     outline-offset: 2px;
+}
+
+:root.dark-mode .theme-toggle {
+    background-color: rgba(68, 56, 44, 0.96);
+    border-color: rgba(202, 168, 132, 0.35);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.45);
+}
+
+:root.dark-mode .theme-toggle:hover {
+    background-color: rgba(78, 64, 50, 0.98);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
 }
 
 /* ---- Skip link (a11y) ---- */
@@ -305,6 +338,11 @@ body {
     margin: 0;
 }
 
+:root.dark-mode .app-footer {
+    background: #3b2d1e;
+    color: var(--sand);
+}
+
 /* ---- Main content ---- */
 .main-content {
     padding: 24px;
@@ -321,6 +359,16 @@ body {
     padding: 24px;
     backdrop-filter: blur(2px);
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05), 0 12px 32px rgba(0, 0, 0, 0.06);
+}
+
+:root.dark-mode .page-card {
+    box-shadow:
+        0 1px 2px rgba(0, 0, 0, 0.25),
+        0 8px 28px rgba(0, 0, 0, 0.35);
+}
+
+:root.dark-mode.minecraft-theme .page-card {
+    box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.4);
 }
 
 :root.minecraft-theme .page-card {
@@ -378,6 +426,80 @@ body {
 
 .page-card li + li {
     margin-top: 0.5rem;
+}
+
+.page-card a:not(.page-bottom-nav__btn):not(.project-card):not(.cert-card) {
+    color: var(--link-fg);
+}
+
+.page-card a:not(.page-bottom-nav__btn):not(.project-card):not(.cert-card):hover {
+    color: var(--link-fg-hover);
+}
+
+.page-card a:not(.page-bottom-nav__btn):not(.project-card):not(.cert-card):visited {
+    color: var(--link-visited);
+}
+
+.page-card a:not(.page-bottom-nav__btn):not(.project-card):not(.cert-card):focus-visible {
+    outline: 2px solid var(--link-fg);
+    outline-offset: 2px;
+    border-radius: 2px;
+}
+
+/* ---- Settings page ---- */
+.settings-section {
+    margin-top: 8px;
+}
+
+.settings-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 16px 0;
+    border-bottom: 1px solid var(--card-border);
+}
+
+.settings-row:first-of-type {
+    padding-top: 0;
+}
+
+.settings-row:last-of-type {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.settings-row__text {
+    flex: 1;
+    min-width: 0;
+}
+
+.settings-row__label {
+    display: block;
+    font-weight: 600;
+    color: inherit;
+    cursor: pointer;
+}
+
+.settings-hint {
+    margin: 4px 0 0;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    line-height: 1.45;
+}
+
+.settings-toggle {
+    flex-shrink: 0;
+    width: 20px;
+    height: 20px;
+    margin: 0;
+    accent-color: var(--nav-green);
+    cursor: pointer;
+}
+
+.settings-toggle:disabled {
+    cursor: not-allowed;
+    opacity: 0.45;
 }
 
 .subtitle {
@@ -438,9 +560,9 @@ body {
     padding: 10px 16px;
     font-size: 0.8rem;
     font-weight: 600;
-    border: 2px solid var(--nav-green-dark);
+    border: 2px solid #2f521f;
     border-radius: 6px;
-    background-color: var(--nav-green);
+    background-color: var(--nav-green-dark);
     color: var(--text-on-accent);
     cursor: pointer;
     text-decoration: none;
@@ -450,8 +572,8 @@ body {
 }
 
 .page-bottom-nav__btn:hover {
-    background-color: var(--nav-green-dark);
-    border-color: #2f521f;
+    background-color: #2f521f;
+    border-color: #243d18;
 }
 
 .page-bottom-nav__btn:focus-visible {
@@ -460,13 +582,13 @@ body {
 }
 
 :root.dark-mode .page-bottom-nav__btn {
-    background-color: var(--nav-green-dark);
-    border-color: var(--nav-green);
+    background-color: var(--nav-green);
+    border-color: #1a2812;
 }
 
 :root.dark-mode .page-bottom-nav__btn:hover {
-    background-color: var(--nav-green);
-    border-color: var(--nav-green-dark);
+    background-color: #1a2812;
+    border-color: var(--nav-green);
 }
 
 :root.minecraft-theme .page-bottom-nav {
@@ -1555,8 +1677,8 @@ body {
 }
 
 .project-card {
-    background: #fff;
-    border: 1px solid #d4d4d4;
+    background: var(--project-card-bg);
+    border: 1px solid var(--project-card-border);
     border-radius: 8px;
     padding: 16px;
     text-decoration: none;
@@ -1568,13 +1690,13 @@ body {
 .project-card:hover,
 .project-card:focus-visible {
     border-color: var(--nav-green);
-    box-shadow: 0 2px 8px rgba(93, 140, 62, 0.25);
+    box-shadow: 0 2px 8px var(--project-card-hover-shadow);
 }
 
 .project-card h3 {
     margin: 0 0 8px;
     font-size: 1rem;
-    color: var(--nav-green-dark);
+    color: var(--project-card-heading);
 }
 
 .project-card p {
@@ -1604,8 +1726,8 @@ body {
 }
 
 .cert-card {
-    background: #fff;
-    border: 1px solid #d4d4d4;
+    background: var(--project-card-bg);
+    border: 1px solid var(--project-card-border);
     border-radius: 8px;
     padding: 16px;
     text-decoration: none;
@@ -1617,13 +1739,13 @@ body {
 .cert-card:hover,
 .cert-card:focus-visible {
     border-color: var(--nav-green);
-    box-shadow: 0 2px 8px rgba(93, 140, 62, 0.25);
+    box-shadow: 0 2px 8px var(--project-card-hover-shadow);
 }
 
 .cert-card h3 {
     margin: 0 0 4px;
     font-size: 0.95rem;
-    color: var(--nav-green-dark);
+    color: var(--project-card-heading);
 }
 
 .cert-card p {

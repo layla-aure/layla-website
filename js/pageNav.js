@@ -23,7 +23,8 @@
     { path: "timelines/robotics.html", label: "Robotics" },
     { path: "videogames/minecraft.html", label: "Minecraft" },
     { path: "videogames/marvel-rivals.html", label: "Marvel Rivals" },
-    { path: "gallery.html", label: "Gallery" }
+    { path: "gallery.html", label: "Gallery" },
+    { path: "settings.html", label: "Settings" }
   ];
 
   function pathPrefix() {

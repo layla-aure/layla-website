@@ -1157,13 +1157,14 @@ img[role="button"]:focus-visible,
 
     .app-layout {
         grid-template-columns: 1fr;
+        align-content: start;
     }
 
     .sidebar {
         display: grid;
         grid-template-columns: 1fr;
         grid-template-rows: auto auto;
-        align-self: stretch;
+        align-self: start;
         gap: 0;
         padding: 0;
         height: auto;
@@ -1822,6 +1823,33 @@ img[role="button"]:focus-visible,
     background: #fff;
 }
 
+.document-embed-fallback {
+    display: none;
+}
+
+.document-embed-fallback__link {
+    text-decoration: none;
+}
+
+.document-embed-desktop-link {
+    margin: 12px 0 0;
+}
+
+@media (max-width: 768px) {
+    .document-embed {
+        display: none;
+    }
+
+    .document-embed-fallback {
+        display: block;
+        margin-top: 8px;
+    }
+
+    .document-embed-desktop-link {
+        display: none;
+    }
+}
+
 /* ---- Detail section (individual project/game pages) ---- */
 .detail-section {
     margin: 16px 0;
@@ -2052,7 +2080,7 @@ body.pdf-lightbox-open {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 64px 24px 24px;
+    padding: max(16px, env(safe-area-inset-top)) 24px max(24px, env(safe-area-inset-bottom));
     background: rgba(0, 0, 0, 0.85);
 }
 
@@ -2087,7 +2115,7 @@ body.pdf-lightbox-open {
 .pdf-lightbox__frame {
     width: 100%;
     max-width: min(95vw, 900px);
-    height: 90vh;
+    height: calc(100dvh - 80px);
     border: none;
     border-radius: 8px;
     background: #fff;

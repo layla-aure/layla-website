@@ -38,6 +38,9 @@
 
   function normalizePath(pathname) {
     var parts = pathname.split("/").filter(Boolean);
+    if (parts.length === 0) {
+      return "index.html";
+    }
     var file = (parts[parts.length - 1] || "index.html").toLowerCase();
     if (file === "index.html" && parts.length > 1) {
       var parent = parts[parts.length - 2].toLowerCase();

@@ -2,6 +2,10 @@
   var overlay = null;
   var lastFocused = null;
 
+  function isMobilePdfView() {
+    return window.matchMedia("(max-width: 768px)").matches;
+  }
+
   function createOverlay() {
     overlay = document.createElement("div");
     overlay.className = "pdf-lightbox";
@@ -64,6 +68,12 @@
     }
 
     event.preventDefault();
+
+    if (isMobilePdfView()) {
+      window.open(card.getAttribute("href"), "_blank", "noopener");
+      return;
+    }
+
     openLightbox(card);
   });
 

@@ -45,10 +45,12 @@ jobs:
         run: |
           npx --yes http-server -p 8765 -c-1 -s &
           SERVER_PID=$!
+          trap 'kill $SERVER_PID' EXIT
           sleep 3
-          URLS=$(find . -name '*.html' -not -path './.git/*' | sed 's|^\./||' | while read -r page; do echo -n " http://127.0.0.1:8765/$page"; done)
-          npx --yes pa11y-ci $URLS --standard WCAG2AA
-          kill $SERVER_PID
+          find . -name '*.html' -not -path './.git/*' | sed 's|^\./||' | \
+            jq -R -s 'split("\n") | map(select(length>0)) | map("http://127.0.0.1:8765/" + .) | {defaults: {standard: "WCAG2AA"}, urls: .}' \
+            > .pa11yci.json
+          npx --yes pa11y-ci --config .pa11yci.json
 
   deploy:
     name: Deploy to AWS

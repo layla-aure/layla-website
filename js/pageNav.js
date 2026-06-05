@@ -56,11 +56,23 @@
 
   var BTN_CLASS = "page-bottom-nav__btn";
 
-  function link(label, targetPath, modifier) {
+  function link(options) {
     var a = document.createElement("a");
-    a.className = modifier ? BTN_CLASS + " " + modifier : BTN_CLASS;
-    a.href = hrefFor(targetPath);
-    a.textContent = label;
+    a.className = options.modifier ? BTN_CLASS + " " + options.modifier : BTN_CLASS;
+    a.href = hrefFor(options.targetPath);
+    a.setAttribute("aria-label", options.ariaLabel);
+
+    var arrow = document.createElement("span");
+    arrow.className = "page-bottom-nav__arrow";
+    arrow.setAttribute("aria-hidden", "true");
+    arrow.textContent = options.arrow;
+
+    var label = document.createElement("span");
+    label.className = "page-bottom-nav__label";
+    label.textContent = options.text;
+
+    a.appendChild(arrow);
+    a.appendChild(label);
     return a;
   }
 
@@ -93,13 +105,25 @@
 
   if (backPath && backLabel && (!prev || backPath !== prev.path)) {
     startGroup.appendChild(
-      link("\u2190 Back: " + backLabel, backPath, "page-bottom-nav__back")
+      link({
+        targetPath: backPath,
+        modifier: "page-bottom-nav__back",
+        arrow: "\u21A9",
+        text: "\u2190 Back: " + backLabel,
+        ariaLabel: "Back to " + backLabel
+      })
     );
   }
 
   if (prev) {
     startGroup.appendChild(
-      link("\u2190 " + prev.label, prev.path, "page-bottom-nav__prev")
+      link({
+        targetPath: prev.path,
+        modifier: "page-bottom-nav__prev",
+        arrow: "\u2190",
+        text: "\u2190 " + prev.label,
+        ariaLabel: "Previous: " + prev.label
+      })
     );
   }
 
@@ -108,7 +132,13 @@
 
   if (next) {
     endGroup.appendChild(
-      link(next.label + " \u2192", next.path, "page-bottom-nav__next")
+      link({
+        targetPath: next.path,
+        modifier: "page-bottom-nav__next",
+        arrow: "\u2192",
+        text: next.label + " \u2192",
+        ariaLabel: "Next: " + next.label
+      })
     );
   }
 

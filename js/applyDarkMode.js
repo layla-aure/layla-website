@@ -54,6 +54,9 @@
     });
 
     document.body.appendChild(btn);
+    if (window.placeThemeToggle) {
+      window.placeThemeToggle();
+    }
   }
 
   if (document.readyState === "loading") {

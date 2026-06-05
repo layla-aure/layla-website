@@ -4,6 +4,7 @@
     { path: "documents/resume.html", label: "Resume" },
     { path: "documents/certifications.html", label: "Certifications" },
     { path: "projects/index.html", label: "All Projects" },
+    { path: "projects/personal-portfolio.html", label: "Portfolio Website", backPath: "projects/index.html", backLabel: "All Projects" },
     { path: "projects/jarvis-ai.html", label: "JARVIS AI", backPath: "projects/index.html", backLabel: "All Projects" },
     { path: "projects/splatbot.html", label: "Splatbot Game", backPath: "projects/index.html", backLabel: "All Projects" },
     { path: "projects/social-network.html", label: "Social Network", backPath: "projects/index.html", backLabel: "All Projects" },
